@@ -34,9 +34,41 @@ Imagine we don't have it. One programmer push to master, second push, the deploy
 **Application.java**
 ```java
 public static void main(String[] args) {
+
   ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("config.xml");
   MyClass myClass = ctx.getBean(Myclass.class);
 }
 ```
 
 # Annotations
+**Config.class**
+
+```java
+@Configuration (
+  componentScan = "com.core.components.*"
+)
+public class Config {
+  @Bean 
+  MyClass myClass() {
+    return new MyClass();
+}
+```
+
+**MyComponent.class** in package ```com.core.components``` 
+
+```java
+@Component
+public class MyComponent {
+***
+}
+```
+
+**Application.java**
+```java
+public static void main(String[] args) {
+
+  AnnotationApplicationContext ctx = new AnnotationApplicationContext(Config.class);
+  MyClass myClass = ctx.getBean(Myclass.class);
+  MyComponent myComponent = ctx.getBean(MyComponent.class);
+}
+```
