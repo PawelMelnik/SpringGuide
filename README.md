@@ -121,9 +121,10 @@ To inject MyClassImpl bean in MyComponent bean we should do:
 <bean id="my_class" class="com.***.MyClassImpl">
   
 <bean id="my_component" class="com.***.MyComponent">
-  <constructor-arg name="myclass" ref="my_class" />
+  <constructor-arg name="myclass" ref="my_class" /> 
   
 ```
+//If we use setter injection, the key is ```property``` instead of ```constructor-arg```
 
 **Application.java**
 ```java
@@ -167,8 +168,31 @@ public class MyComponent {
 ```java
 public static void main(String[] args) {
 
-  AnnotationApplicationContext ctx = new AnnotationApplicationContext(Config.class);
+  AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Config.class);
   MyClass myClass = ctx.getBean(Myclass.class);
   MyComponent myComponent = ctx.getBean(MyComponent.class);
 }
 ```
+
+### What is bean definition? It is information, based on that bean of object is created.
+
+## Types of injection
+- by field
+  **bad** because 
+  - if Spring don't find any bean to inject inito our field it put null instead and we will get NPE;
+  - it is hard to debug, hard to see dependencies;
+  - bad for testing, because hard to mock.
+- by setter 
+  for optional
+- by constructor
+  **best** 
+  - can find cyclic dependencies.
+  
+  ##BeanFactory vs ApplicationContext
+  BeanFactory
+  - Can instantiate and link beans
+  - Do not have postprocessors, internatializers and work with events
+  
+  ##Questions
+  1. Is it allowed to use both setter and constructor injections
+  2. Servlet conatainer. What is the responsability?
