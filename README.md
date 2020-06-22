@@ -196,3 +196,18 @@ public static void main(String[] args) {
   ##Questions
   1. Is it allowed to use both setter and constructor injections
   2. Servlet conatainer. What is the responsability?
+  
+  
+  ## Spring AOP
+  
+  Required:
+  - `@EnableAspectJProxy`-- spring.context
+  - `@Aspect` class -- spring-aspects
+  
+  So that all the classes who sutisfies the Pointcut will be proxied by Dynamic Proxy or CGlib.
+  ### Dynamic proxy -- powered by JDK (reflection package). It is used in case when proxied class implements one or more interfaces. So the reference to that class will be changed to reference on proxy because it will implement all the interfaces too. BUT you won't be able to autowire your class by default.
+  ### CGlib proxy -- powered by CGlib. It is used when proxied class implements nothing. So that proxy class will extend it.
+  
+  ### Aspect class
+  - We need @PointCut -- the condition to methods be covered by proxy.
+  - Then there are some annotations: @Before, @After, @AfterReturn, @AfterThrowing.
