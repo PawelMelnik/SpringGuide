@@ -211,3 +211,5 @@ public static void main(String[] args) {
   ### Aspect class
   - We need @PointCut -- the condition to methods be covered by proxy.
   - Then there are some annotations: @Before, @After, @AfterReturn, @AfterThrowing.
+  - @After doesn't have 'return' inspite of @AfterReturn.
+  - Even if Exception is thrown in @Before, @After method will be executed.
